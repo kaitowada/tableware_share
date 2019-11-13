@@ -11,7 +11,7 @@ brew install docker-compose
 ```
 brew install git
 ```
-- githubのcontributionsに招待されている。
+- githubのCollaboratorsに招待されている。
   - されていない時は教えてください。
 
 ## はじめに
