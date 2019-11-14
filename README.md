@@ -70,6 +70,7 @@ DeprecationWarning: Tapable.plugin is deprecated. Use new API on `.hooks` instea
 ```
 
 - DBのマイグレーション
+docker-compose upをした状態で下記を実行
 ```
 docker-compose run --rm laravel php artisan migrate
 ```
