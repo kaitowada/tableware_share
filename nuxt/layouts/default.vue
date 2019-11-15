@@ -1,63 +1,70 @@
 <template>
-  <v-app dark>
-    <v-navigation-drawer
-      v-model="drawer"
-      :mini-variant="miniVariant"
-      :clipped="clipped"
-      fixed
-      app
-    >
-      <v-list>
-        <v-list-item
-          v-for="(item, i) in items"
-          :key="i"
-          :to="item.to"
-          router
-          exact
-        >
-          <v-list-item-action>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title v-text="item.title" />
-          </v-list-item-content>
+  <v-app>
+    <v-navigation-drawer v-model="drawer" temporary fixed>
+      <template>
+        <v-list>
+          <v-list-item>
+            <v-list-item-avatar>
+              <v-img
+                src="https://randomuser.me/api/portraits/women/85.jpg"
+              ></v-img>
+            </v-list-item-avatar>
+          </v-list-item>
+
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title class="title">
+                {{ user.name }}
+              </v-list-item-title>
+              <v-list-item-subtitle>
+                {{ user.city }}{{ user.address }}
+              </v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
+      </template>
+
+      <v-divider></v-divider>
+
+      <v-list nav dense>
+        <v-list-item link>
+          <v-list-item-icon>
+            <v-icon>mdi-home</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>マイページ</v-list-item-title>
+        </v-list-item>
+        <v-list-item link>
+          <v-list-item-icon>
+            <v-icon>mdi-magnify</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>商品検索</v-list-item-title>
+        </v-list-item>
+        <v-list-item link>
+          <v-list-item-icon>
+            <v-icon>mdi-format-list-bulleted</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>登録商品一覧</v-list-item-title>
+        </v-list-item>
+        <v-list-item link>
+          <v-list-item-icon>
+            <v-icon>mdi-package-variant-closed</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>貸出商品登録</v-list-item-title>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-app-bar :clipped-left="clipped" fixed app>
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-btn @click.stop="miniVariant = !miniVariant" icon>
-        <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
-      </v-btn>
-      <v-btn @click.stop="clipped = !clipped" icon>
-        <v-icon>mdi-application</v-icon>
-      </v-btn>
-      <v-btn @click.stop="fixed = !fixed" icon>
-        <v-icon>mdi-minus</v-icon>
-      </v-btn>
-      <v-toolbar-title v-text="title" />
-      <v-spacer />
-      <v-btn @click.stop="rightDrawer = !rightDrawer" icon>
+    <v-app-bar :clipped-left="clipped" fixed app class="header-colour">
+      <v-btn @click.stop="drawer = !drawer" icon>
         <v-icon>mdi-menu</v-icon>
       </v-btn>
+      <v-toolbar-title>Cloud Kitchen</v-toolbar-title>
+      <v-spacer />
     </v-app-bar>
     <v-content>
       <v-container>
         <nuxt />
       </v-container>
     </v-content>
-    <v-navigation-drawer v-model="rightDrawer" :right="right" temporary fixed>
-      <v-list>
-        <v-list-item @click.native="right = !right">
-          <v-list-item-action>
-            <v-icon light>
-              mdi-repeat
-            </v-icon>
-          </v-list-item-action>
-          <v-list-item-title>Switch drawer (click me)</v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
     <v-footer :fixed="fixed" app>
       <span>&copy; 2019</span>
     </v-footer>
@@ -66,28 +73,33 @@
 
 <script>
 export default {
-  data() {
-    return {
-      clipped: false,
-      drawer: false,
-      fixed: false,
-      items: [
-        {
-          icon: 'mdi-apps',
-          title: 'Welcome',
-          to: '/'
-        },
-        {
-          icon: 'mdi-chart-bubble',
-          title: 'Inspire',
-          to: '/inspire'
-        }
-      ],
-      miniVariant: false,
-      right: true,
-      rightDrawer: false,
-      title: 'Vuetify.js'
+  data: () => ({
+    clipped: false,
+    drawer: null,
+    fixed: false,
+    login: false,
+    user: {
+      name: 'user name',
+      city: '福岡県福岡市',
+      address: '博多区美野島'
     }
-  }
+  }),
+  computed: {},
+  watch: {},
+  async created() {},
+  methods: {}
 }
 </script>
+
+<style scoped>
+.drawer-title {
+  margin: 15px 15px 15px 15px;
+}
+.item-style {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.header-colour {
+  background-color: #a8fffb;
+}
+</style>
