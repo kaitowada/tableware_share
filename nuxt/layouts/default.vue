@@ -27,7 +27,7 @@
       <v-divider></v-divider>
 
       <v-list nav dense>
-        <v-list-item link>
+        <v-list-item to="mypage">
           <v-list-item-icon>
             <v-icon>mdi-home</v-icon>
           </v-list-item-icon>
@@ -57,7 +57,11 @@
       <v-btn @click.stop="drawer = !drawer" icon>
         <v-icon>mdi-menu</v-icon>
       </v-btn>
-      <v-toolbar-title>Cloud Kitchen</v-toolbar-title>
+      <v-toolbar-title>
+        <v-btn text to="/">
+          Cloud Kitchen
+        </v-btn>
+      </v-toolbar-title>
       <v-spacer />
     </v-app-bar>
     <v-content>
