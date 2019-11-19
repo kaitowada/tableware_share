@@ -19,8 +19,6 @@ class CommoditiesTable extends Migration
                   ->unsigned();
             $table->string('name');
             $table->integer('price');
-            $table->integer('status')
-                  ->default(0);
             $table->text('image_path')
                   ->nullable()
                   ->default(null);

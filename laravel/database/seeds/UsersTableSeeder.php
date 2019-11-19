@@ -12,7 +12,7 @@ class UsersTableSeeder extends Seeder
      */
     public function run(Faker $faker)
     {
-        for($i = 0; $i < 9; $i++) {
+        for($i = 0; $i < 10; $i++) {
             DB::table('users')->insert([
                 'name' => $faker->name,
                 'email' => $faker->unique()->safeEmail,

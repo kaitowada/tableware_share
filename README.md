@@ -59,6 +59,7 @@ docker-compose up
 docker-compose run --rm nuxt yarn
 docker-compose run --rm laravel composer install
 ```
+DBのseedを実行する
 - 環境の起動
 
 ```
@@ -73,4 +74,11 @@ DeprecationWarning: Tapable.plugin is deprecated. Use new API on `.hooks` instea
 docker-compose upをした状態で下記を実行
 ```
 docker-compose run --rm laravel php artisan migrate
+```
+
+- Seedの実行
+docker-compose upをした状態で下記を実行
+```
+docker-compose run --rm laravel composer dump-autoload
+docker-compose run --rm laravel php artisan db:seed
 ```
