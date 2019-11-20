@@ -13,7 +13,13 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::options('{all}', function () {
+    $response = Response::make('');
+    return $response;
+});
 
-Route::group(["middleware" => "api"], function () {
-    Route::match(["get", "options"], '/evaluation/{id}', 'Api\EvaluationController@show');
+Route::group(["middleware" => "cors"], function () {
+    Route::group(["middleware" => "api"], function () {
+        Route::match(["get", "options"], '/evaluation/{id}', 'Api\EvaluationController@show');
+    });
 });

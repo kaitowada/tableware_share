@@ -14,7 +14,7 @@
                 </v-flex>
                 <v-flex xs4>
                   <v-rating
-                    v-model="star"
+                    :value="getUserStar.star"
                     half-increments
                     color="#000000"
                     background-color="#000000"
@@ -61,6 +61,7 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
 export default {
   components: {},
   data() {
@@ -70,13 +71,19 @@ export default {
         city: '福岡県福岡市',
         address: '博多区美野島'
       },
-      star: null
+      star: 3
     }
   },
-  computed: {},
+  computed: {
+    ...mapGetters('evaluation', ['getUserStar'])
+  },
   watch: {},
-  async created() {},
+  async created() {
+    const userId = 1
+    await this.getStar(userId)
+  },
   methods: {
+    ...mapActions('evaluation', { getStar: 'getUserStar' }),
     editAddress() {
       console.log('onSubmitAddress')
     }
