@@ -70,8 +70,7 @@ export default {
         name: 'my name',
         city: '福岡県福岡市',
         address: '博多区美野島'
-      },
-      star: 3
+      }
     }
   },
   computed: {
