@@ -4,8 +4,8 @@
       <template>
         <v-list>
           <v-list-item>
-            <v-list-item-avatar>
-              <v-img src="https://randomuser.me/api/portraits/women/85.jpg" />
+            <v-list-item-avatar size="55">
+              <v-img :src="user.icon" />
             </v-list-item-avatar>
           </v-list-item>
 
@@ -126,7 +126,8 @@ export default {
       id: 1,
       name: 'user name',
       city: '福岡県福岡市',
-      address: '博多区美野島'
+      address: '博多区美野島',
+      icon: 'https://randomuser.me/api/portraits/women/85.jpg'
     }
   }),
   computed: {
@@ -138,7 +139,6 @@ export default {
   },
   methods: {
     ...mapActions('dealing', { getDealingsSituation: 'getDealingsSituation' }),
-    ...mapActions('app', { changeAlert: 'changeAlertDisplay' }),
     changeAlertFlg() {
       this.alertFlg = !this.alertFlg
     }
