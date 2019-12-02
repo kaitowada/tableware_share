@@ -17,7 +17,7 @@ class DealingsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id')->unsigned();
             $table->unsignedBigInteger('commodity_id')->unsigned();
-            $table->integer('status')->default(0);
+            $table->integer('status')->nullable()->default(null);
 
             $table->timestamps();
 

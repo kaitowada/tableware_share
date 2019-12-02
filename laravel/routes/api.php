@@ -1,6 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
+// use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,5 +22,6 @@ Route::options('{all}', function () {
 Route::group(["middleware" => "cors"], function () {
     Route::group(["middleware" => "api"], function () {
         Route::match(["get", "options"], '/evaluation/{id}', 'Api\EvaluationController@show');
+        Route::match(["get", "options"], '/dealing/get_status_trading', 'Api\DealingController@get_status_trading');
     });
 });

@@ -3,7 +3,7 @@
     <v-layout column wrap>
       <v-layout row wrap>
         <v-flex xs5>
-          <v-img src="https://randomuser.me/api/portraits/women/85.jpg"></v-img>
+          <v-img src="https://randomuser.me/api/portraits/women/85.jpg" />
         </v-flex>
         <v-flex xs5>
           <v-content>
@@ -19,7 +19,7 @@
                     color="#000000"
                     background-color="#000000"
                     readonly
-                  ></v-rating>
+                  />
                 </v-flex>
               </v-layout>
             </v-container>
@@ -32,7 +32,7 @@
           label="my name"
           readonly
           class="my-name-size"
-        ></v-text-field>
+        />
       </v-flex>
     </v-layout>
 
@@ -43,14 +43,14 @@
             :value="user.city"
             label="福岡県福岡市"
             class="form-object-margin"
-          ></v-text-field>
+          />
         </v-flex>
         <v-flex xs12>
           <v-text-field
             :value="user.address"
             label="博多区美野島"
             class="form-object-margin"
-          ></v-text-field>
+          />
         </v-flex>
         <v-flex xs3>
           <v-btn color="#6200EE" type="submit" class="white--text">更新</v-btn>

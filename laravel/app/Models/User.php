@@ -12,6 +12,18 @@ class User extends Authenticatable
     use Notifiable;
     use SoftDeletes;
 
+    public function dealings() {
+        return $this->hasMany('App\Models\Dealing');
+    }
+
+    public function commodities() {
+        return $this->hasMany('App\Models\Commodity');
+    }
+
+    public function evaluations() {
+        return $this->hasMany('App\Models\Evaluation');
+    }
+
     protected $table = 'users';
     protected $dates = ['deleted_at'];
 
