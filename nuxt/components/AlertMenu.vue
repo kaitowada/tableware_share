@@ -1,7 +1,8 @@
 <template>
   <v-card>
     <v-navigation-drawer
-      v-model="drawer"
+      @input="$emit('change-alert')"
+      :value="alertDisplayFlg"
       :right="true"
       :hide-overlay="true"
       temporary
@@ -29,23 +30,23 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
+
 export default {
   name: 'AlertMenu',
   components: {},
-  props: {
-    drawer: {
-      type: Boolean,
-      required: true,
-      default: false
-    }
-  },
+  props: {},
   data() {
     return {}
   },
-  computed: {},
+  computed: {
+    ...mapGetters('app', ['alertDisplayFlg'])
+  },
   watch: {},
   async created() {},
-  methods: {}
+  methods: {
+    ...mapActions('app', { changeAlert: 'changeAlertDisplay' })
+  }
 }
 </script>
 

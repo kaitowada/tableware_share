@@ -51,7 +51,35 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <AlertMenu :drawer="alertFlg" />
+
+    <v-card>
+      <v-navigation-drawer
+        v-model="alertFlg"
+        :right="true"
+        :hide-overlay="true"
+        temporary
+        fixed
+      >
+        <v-list :two-line="true" :nav="true" :flat="true">
+          <v-subheader>
+            お知らせ
+          </v-subheader>
+          <v-list-item-group>
+            <v-list-item>
+              <v-list-item-content>
+                <v-list-item-title>
+                  ●●の品で取引をしています
+                </v-list-item-title>
+                <v-list-item-subtitle>
+                  取引を進めてください。
+                </v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list-item-group>
+        </v-list>
+      </v-navigation-drawer>
+    </v-card>
+
     <v-app-bar :clipped-left="clipped" fixed app class="header-colour">
       <v-btn @click.stop="drawer = !drawer" icon>
         <v-icon>mdi-menu</v-icon>
@@ -86,12 +114,8 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import AlertMenu from '../components/AlertMenu'
 
 export default {
-  components: {
-    AlertMenu
-  },
   data: () => ({
     clipped: false,
     drawer: null,
@@ -114,6 +138,7 @@ export default {
   },
   methods: {
     ...mapActions('dealing', { getDealingsSituation: 'getDealingsSituation' }),
+    ...mapActions('app', { changeAlert: 'changeAlertDisplay' }),
     changeAlertFlg() {
       this.alertFlg = !this.alertFlg
     }
