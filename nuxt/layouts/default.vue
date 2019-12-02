@@ -5,9 +5,7 @@
         <v-list>
           <v-list-item>
             <v-list-item-avatar>
-              <v-img
-                src="https://randomuser.me/api/portraits/women/85.jpg"
-              ></v-img>
+              <v-img src="https://randomuser.me/api/portraits/women/85.jpg" />
             </v-list-item-avatar>
           </v-list-item>
 
@@ -24,7 +22,7 @@
         </v-list>
       </template>
 
-      <v-divider></v-divider>
+      <v-divider />
 
       <v-list nav dense>
         <v-list-item to="mypage">
@@ -53,6 +51,7 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
+    <AlertMenu :drawer="alertFlg" />
     <v-app-bar :clipped-left="clipped" fixed app class="header-colour">
       <v-btn @click.stop="drawer = !drawer" icon>
         <v-icon>mdi-menu</v-icon>
@@ -63,6 +62,16 @@
         </v-btn>
       </v-toolbar-title>
       <v-spacer />
+      <template v-if="getAlert">
+        <v-btn @click="changeAlertFlg" icon>
+          <v-icon>mdi-bell-alert</v-icon>
+        </v-btn>
+      </template>
+      <template v-else>
+        <v-btn @click="changeAlertFlg" icon>
+          <v-icon>mdi-bell</v-icon>
+        </v-btn>
+      </template>
     </v-app-bar>
     <v-content>
       <v-container>
@@ -76,22 +85,39 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
+import AlertMenu from '../components/AlertMenu'
+
 export default {
+  components: {
+    AlertMenu
+  },
   data: () => ({
     clipped: false,
     drawer: null,
     fixed: false,
     login: false,
+    alertFlg: false,
     user: {
+      id: 1,
       name: 'user name',
       city: '福岡県福岡市',
       address: '博多区美野島'
     }
   }),
-  computed: {},
+  computed: {
+    ...mapGetters('dealing', ['getAlert', 'getSituation'])
+  },
   watch: {},
-  async created() {},
-  methods: {}
+  async created() {
+    await this.getDealingsSituation(this.user.id)
+  },
+  methods: {
+    ...mapActions('dealing', { getDealingsSituation: 'getDealingsSituation' }),
+    changeAlertFlg() {
+      this.alertFlg = !this.alertFlg
+    }
+  }
 }
 </script>
 
