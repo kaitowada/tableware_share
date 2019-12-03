@@ -20,6 +20,7 @@ Route::options('{all}', function () {
 
 Route::group(["middleware" => "cors"], function () {
     Route::group(["middleware" => "api"], function () {
+        Route::match(["post", "options"], '/login', 'Auth\LoginController@login');
         Route::match(["get", "options"], '/evaluation/{id}', 'Api\EvaluationController@show');
     });
 });
