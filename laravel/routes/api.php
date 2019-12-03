@@ -21,8 +21,12 @@ Route::options('{all}', function () {
 
 Route::group(["middleware" => "cors"], function () {
     Route::group(["middleware" => "api"], function () {
+        Route::match(["post", "options"], '/login', 'Auth\LoginController@login');
         Route::match(["get", "options"], '/evaluation/{id}', 'Api\EvaluationController@show');
         Route::match(["get", "options"], '/dealing/get_status_trading', 'Api\DealingController@get_status_trading');
         Route::apiResource('user', 'Api\UserController');
+        Route::group(['middleware' => 'auth:api'], function () {
+            Route::match(["get", "options"], '/evaluation/{id}', 'Api\EvaluationController@show');
+        });
     });
 });
