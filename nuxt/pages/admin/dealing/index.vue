@@ -1,4 +1,8 @@
-<template><p>hoge</p></template>
+<template>
+  <v-container>
+    <p>hoge</p>
+  </v-container>
+</template>
 
 <script>
 export default {}
