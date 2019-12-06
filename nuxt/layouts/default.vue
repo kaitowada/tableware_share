@@ -25,7 +25,7 @@
       <v-divider />
 
       <v-list nav dense>
-        <v-list-item to="mypage">
+        <v-list-item to="/mypage">
           <v-list-item-icon>
             <v-icon>mdi-home</v-icon>
           </v-list-item-icon>
@@ -37,13 +37,13 @@
           </v-list-item-icon>
           <v-list-item-title>商品検索</v-list-item-title>
         </v-list-item>
-        <v-list-item to="my-commodities">
+        <v-list-item to="/my-commodities">
           <v-list-item-icon>
             <v-icon>mdi-format-list-bulleted</v-icon>
           </v-list-item-icon>
           <v-list-item-title>登録商品一覧</v-list-item-title>
         </v-list-item>
-        <v-list-item link>
+        <v-list-item to="/commodities/new">
           <v-list-item-icon>
             <v-icon>mdi-package-variant-closed</v-icon>
           </v-list-item-icon>
