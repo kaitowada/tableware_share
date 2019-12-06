@@ -41,14 +41,14 @@
         <v-layout wrap justify-center="true">
           <v-flex xs12>
             <v-text-field
-              :value="user.city"
+              v-model="user.city"
               label="福岡県福岡市"
               class="form-object-margin"
             />
           </v-flex>
           <v-flex xs12>
             <v-text-field
-              :value="user.address"
+              v-model="user.address"
               label="博多区美野島"
               class="form-object-margin"
             />
@@ -77,8 +77,8 @@ export default {
     return {
       user: {
         name: 'my name',
-        city: '福岡県福岡市',
-        address: '博多区美野島'
+        city: '',
+        address: ''
       }
     }
   },
