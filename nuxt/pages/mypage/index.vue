@@ -54,7 +54,12 @@
             />
           </v-flex>
           <v-flex xs3>
-            <v-btn color="#6200EE" type="submit" class="white--text">
+            <v-btn
+              @click="isUpdateAddress"
+              color="#6200EE"
+              type="submit"
+              class="white--text"
+            >
               更新
             </v-btn>
           </v-flex>
@@ -87,8 +92,19 @@ export default {
   },
   methods: {
     ...mapActions('evaluation', { getStar: 'getUserStar' }),
+    ...mapActions('user', { updateAddress: 'updateUserAddress' }),
     editAddress() {
       console.log('onSubmitAddress')
+    },
+    isUpdateAddress() {
+      const data = {
+        postData: {
+          city: this.user.city,
+          address: this.user.address
+        },
+        userId: 1
+      }
+      this.updateAddress(data)
     }
   }
 }
