@@ -22,5 +22,7 @@ use Illuminate\Support\Facades\Route;
 Route::group(["middleware" => "api"], function () {
     Route::match(["get", "options"], '/evaluation/{id}', 'Api\EvaluationController@show');
     Route::match(["get", "options"], '/dealing/get_status_trading', 'Api\DealingController@get_status_trading');
+
     Route::match(["put", "options"], 'user/{id}', 'Api\UserController@update');
+    Route::match(["post", "options"], 'user/update_image/{id}', 'Api\UserController@update_image');
 });

@@ -16,14 +16,11 @@ export const mutations = {
 
 export const actions = {
   async getDealingsSituation({ dispatch, commit }, data) {
-    const response = await this.$axios.$get(
-      'http://localhost:4000/api/dealing/get_status_trading',
-      {
-        params: {
-          user_id: data
-        }
+    const response = await this.$axios.$get('/dealing/get_status_trading', {
+      params: {
+        user_id: data
       }
-    )
+    })
     commit('setDealingsSituation', response)
   }
 }

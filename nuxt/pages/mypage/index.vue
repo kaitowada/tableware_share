@@ -4,7 +4,17 @@
       <v-layout column wrap>
         <v-layout row wrap>
           <v-flex xs5>
-            <v-img src="https://randomuser.me/api/portraits/women/85.jpg" />
+            <div @click="setImage">
+              <v-img src="https://randomuser.me/api/portraits/women/85.jpg" />
+            </div>
+            <input
+              id="finish_image"
+              @change="setImageFinish"
+              type="file"
+              class="file-input"
+              name="photo"
+              accept=".png,.jpeg,.jpg,.PNG,.JPEG,.JPG"
+            />
           </v-flex>
           <v-flex xs5>
             <v-content>
@@ -92,7 +102,10 @@ export default {
   },
   methods: {
     ...mapActions('evaluation', { getStar: 'getUserStar' }),
-    ...mapActions('user', { updateAddress: 'updateUserAddress' }),
+    ...mapActions('user', {
+      updateAddress: 'updateUserAddress',
+      updateImage: 'updateUserImage'
+    }),
     editAddress() {
       console.log('onSubmitAddress')
     },
@@ -105,6 +118,26 @@ export default {
         userId: 1
       }
       this.updateAddress(data)
+    },
+    setImage() {
+      const input = document.querySelector('#finish_image')
+      input.click()
+      console.log('setImage')
+    },
+    setImageFinish(event) {
+      console.log('setImageFinish')
+      const files = event.target.files || event.dataTransfer.files
+      if (files.length > 0) {
+        const file = files[0]
+        console.log('file', file)
+        const params = new FormData()
+        params.append('file', file)
+        const data = {
+          userId: 1,
+          image: params
+        }
+        this.updateImage(data)
+      }
     }
   }
 }
@@ -125,5 +158,9 @@ export default {
 .form-object-margin {
   margin-top: 15px;
   margin-bottom: 10px;
+}
+.file-input {
+  display: none;
+  z-index: 1;
 }
 </style>

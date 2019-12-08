@@ -8,9 +8,7 @@ export const mutations = {
 }
 export const actions = {
   async getUserStar({ dispatch, commit }, data) {
-    const response = await this.$axios.$get(
-      'http://localhost:4000/api/evaluation/' + data
-    )
+    const response = await this.$axios.$get('/evaluation/' + data)
     commit('setStar', response)
   }
 }

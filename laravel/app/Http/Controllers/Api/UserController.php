@@ -65,4 +65,11 @@ class UserController extends Controller
     {
         //
     }
+
+    public function update_image(Request $request, $id) {
+        $user = User::find($id);
+        $user->image_path = $request->file('file')->store('public');
+        $user->save();
+        return response()->json(['status'=>'success']);
+    }
 }
