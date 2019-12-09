@@ -18,6 +18,10 @@ class Dealing extends Model
         return $this->hasOne('App\Models\Commodity');
     }
 
+    public function chat_logs() {
+        return $this->hasMany('App\Models\ChatLog');
+    }
+
     protected $table = 'evaluations';
     protected $dates = ['deleted_at'];
 }
