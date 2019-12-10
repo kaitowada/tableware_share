@@ -33,57 +33,20 @@
           background-color="#000000"
         />
       </ConfirmPanel>
-      <v-card>
-        <v-container :fluid="true">
-          <div v-for="chat in getChats">
-            <template v-if="user.id === chat.user_id">
-              <v-layout :justify-start="true" class="text-margin">
-                <v-flex xs5>
-                  <v-card>
-                    <v-card-text>
-                      {{ chat.text }}
-                    </v-card-text>
-                  </v-card>
-                </v-flex>
-              </v-layout>
-            </template>
-            <template v-else>
-              <v-layout :justify-end="true">
-                <v-flex xs5>
-                  <v-card>
-                    <v-card-text>
-                      {{ chat.text }}
-                    </v-card-text>
-                  </v-card>
-                </v-flex>
-              </v-layout>
-            </template>
-          </div>
-        </v-container>
-      </v-card>
-      <v-layout row>
-        <v-flex xs9>
-          <v-text-field v-model="postMessage" single-line solo />
-        </v-flex>
-        <v-flex>
-          <v-btn @click="chatPost" large>
-            送信
-          </v-btn>
-        </v-flex>
-      </v-layout>
+      <ChatPanel :dealing-id="dealingId" :user-id="user.id" />
     </v-flex>
   </v-layout>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
-
 import MyProfile from '../../components/parts/cards/MyProfile'
 import ConfirmPanel from '../../components/parts/cards/ConfirmPanel'
+import ChatPanel from '../../components/parts/cards/ChatPanel'
 export default {
   components: {
     MyProfile,
-    ConfirmPanel
+    ConfirmPanel,
+    ChatPanel
   },
   data() {
     return {
@@ -96,51 +59,15 @@ export default {
       },
       star: 0,
       dealingId: 2,
-      userId: 2,
       postMessage: '',
       intervalId: null
     }
   },
-  computed: {
-    ...mapGetters('chat', ['getChats'])
-  },
+  computed: {},
   watch: {},
-  async created() {
-    await this.getDealingChat(this.dealingId)
-  },
-  mounted() {
-    this.intervalId = setInterval(
-      async function() {
-        await this.getDealingChat(this.dealingId)
-      }.bind(this),
-      1000
-    )
-  },
-  beforeDestroy() {
-    console.log('clearInterval')
-    clearInterval(this.intervalId)
-  },
-  methods: {
-    ...mapActions('chat', {
-      getDealingChat: 'getTransactionChat',
-      saveMessage: 'saveMessageLog'
-    }),
-    async chatPost() {
-      console.log('onClick 送信')
-      const params = {
-        user_id: this.user.id,
-        dealing_id: this.dealingId,
-        text: this.postMessage
-      }
-      this.postMessage = ''
-      await this.saveMessage(params)
-    }
-  }
+  async created() {},
+  methods: {}
 }
 </script>
 
-<style scoped>
-.text-margin {
-  margin: 10px;
-}
-</style>
+<style scoped></style>
