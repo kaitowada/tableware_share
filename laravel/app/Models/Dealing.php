@@ -15,7 +15,7 @@ class Dealing extends Model
     }
 
     public function commodity() {
-        return $this->hasOne('App\Models\Commodity');
+        return $this->belongsTo('App\Models\Commodity');
     }
 
     public function chat_logs() {
