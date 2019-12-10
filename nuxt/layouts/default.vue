@@ -145,7 +145,7 @@ export default {
     },
     getLink(situation) {
       if (situation.id === this.user.id) {
-        console.log('hoge')
+        console.log('getLink')
       }
     }
   }

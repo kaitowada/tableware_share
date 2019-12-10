@@ -63,7 +63,7 @@
       </v-card>
       <v-layout row>
         <v-flex xs9>
-          <v-text-field single-line solo />
+          <v-text-field v-model="postMessage" single-line solo />
         </v-flex>
         <v-flex>
           <v-btn @click="chatPost" large>
@@ -96,7 +96,9 @@ export default {
       },
       star: 0,
       dealingId: 2,
-      userId: 2
+      userId: 2,
+      postMessage: '',
+      intervalId: null
     }
   },
   computed: {
@@ -106,10 +108,32 @@ export default {
   async created() {
     await this.getDealingChat(this.dealingId)
   },
+  mounted() {
+    this.intervalId = setInterval(
+      async function() {
+        await this.getDealingChat(this.dealingId)
+      }.bind(this),
+      1000
+    )
+  },
+  beforeDestroy() {
+    console.log('clearInterval')
+    clearInterval(this.intervalId)
+  },
   methods: {
-    ...mapActions('chat', { getDealingChat: 'getTransactionChat' }),
-    chatPost() {
+    ...mapActions('chat', {
+      getDealingChat: 'getTransactionChat',
+      saveMessage: 'saveMessageLog'
+    }),
+    async chatPost() {
       console.log('onClick 送信')
+      const params = {
+        user_id: this.user.id,
+        dealing_id: this.dealingId,
+        text: this.postMessage
+      }
+      this.postMessage = ''
+      await this.saveMessage(params)
     }
   }
 }
