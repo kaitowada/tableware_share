@@ -22,6 +22,6 @@ class Dealing extends Model
         return $this->hasMany('App\Models\ChatLog');
     }
 
-    protected $table = 'evaluations';
+    protected $table = 'dealings';
     protected $dates = ['deleted_at'];
 }

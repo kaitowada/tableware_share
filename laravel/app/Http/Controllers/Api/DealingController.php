@@ -88,13 +88,7 @@ class DealingController extends Controller
 
     public function get_status_trading(Request $request) {
         $id = $request->input('user_id');
-        $result = DB::table('dealings')
-            ->join('commodities', 'dealings.commodity_id', 'commodities.id')
-            ->whereBetween('dealings.status', [0, 3])
-            ->where(function($query) use ($id) {
-                $query->where('dealings.user_id', $id)
-                    ->orWhere('commodities.user_id', $id);
-            })
+        $result = Dealing::with('commodity')
             ->get();
 
         return $result;
