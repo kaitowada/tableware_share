@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\ChatLog;
 use Illuminate\Http\Request;
-use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
-class UserController extends Controller
+
+
+class ChatLogController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -38,7 +40,10 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $result = DB::table('chat_logs')
+            ->where('chat_logs.dealing_id', $id)
+            ->get();
+        return $result;
     }
 
     /**
@@ -50,9 +55,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = User::find($id);
-        $user->fill($request->all())->save();
-        return response()->json(['status'=>'success']);
+        //
     }
 
     /**
@@ -64,12 +67,5 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function update_image(Request $request, $id) {
-        $user = User::find($id);
-        $user->image_path = $request->file('file')->store('public');
-        $user->save();
-        return response()->json(['status'=>'success']);
     }
 }
