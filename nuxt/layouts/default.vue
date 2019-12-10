@@ -65,10 +65,13 @@
             お知らせ
           </v-subheader>
           <v-list-item-group>
-            <v-list-item>
+            <v-list-item
+              v-for="situation in getSituation"
+              @click="getLink(situation)"
+            >
               <v-list-item-content>
                 <v-list-item-title>
-                  ●●の品で取引をしています
+                  {{ situation.name }}の品で取引をしています
                 </v-list-item-title>
                 <v-list-item-subtitle>
                   取引を進めてください。
@@ -139,6 +142,11 @@ export default {
     ...mapActions('dealing', { getDealingsSituation: 'getDealingsSituation' }),
     changeAlertFlg() {
       this.alertFlg = !this.alertFlg
+    },
+    getLink(situation) {
+      if (situation.id === this.user.id) {
+        console.log('hoge')
+      }
     }
   }
 }
