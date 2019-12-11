@@ -100,6 +100,7 @@
 
       <div class="row align-center justify-center">
         <button
+          @click="registerCommodity"
           type="button"
           class="v-btn v-btn--contained v-btn--tile theme--light elevation-0 v-size--default secondary"
         >
@@ -110,7 +111,7 @@
   </v-container>
 </template>
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   components: {},
   data() {
@@ -119,7 +120,8 @@ export default {
       commodity: {
         name: '',
         price: null,
-        detail: ''
+        detail: '',
+        image: ''
       }
     }
   },
@@ -130,7 +132,20 @@ export default {
   created() {
     this.user = this.getUser
   },
-  methods: {}
+  methods: {
+    ...mapActions('commodity', { saveCommodity: 'commodityRegister' }),
+    async registerCommodity() {
+      const params = {
+        user_id: this.user.id,
+        name: this.commodity.name,
+        price: this.commodity.price,
+        image_path: this.commodity.image,
+        description: this.commodity.detail
+      }
+      await this.saveCommodity(params)
+      this.$router.push({ path: `/mypage` })
+    }
+  }
 }
 </script>
 

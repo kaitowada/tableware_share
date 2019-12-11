@@ -43,7 +43,7 @@
           </v-list-item-icon>
           <v-list-item-title>マイページ</v-list-item-title>
         </v-list-item>
-        <v-list-item link>
+        <v-list-item to="/search">
           <v-list-item-icon>
             <v-icon>mdi-magnify</v-icon>
           </v-list-item-icon>

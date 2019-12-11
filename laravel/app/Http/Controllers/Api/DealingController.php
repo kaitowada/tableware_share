@@ -95,7 +95,6 @@ class DealingController extends Controller
         $id = $request->input('user_id');
         $result = Dealing::with('commodity')->where('user_id', $id)
             ->get();
-
         return $result;
     }
 }

@@ -16,6 +16,8 @@ export const mutations = {
     console.log('setAccessToken', localStorage.accessToken)
   },
   setLoginState(state, loginStatus) {
+    console.log('setState')
+    localStorage.setItem('loginState', loginStatus)
     state.loginState = loginStatus
   },
   unsetAuthInfo(state) {
@@ -24,6 +26,7 @@ export const mutations = {
     state.loginState = false
     localStorage.removeItem('accessToken')
     localStorage.removeItem('user')
+    localStorage.removeItem('loginState')
     localStorage.clear()
   }
 }
@@ -55,7 +58,7 @@ export const actions = {
 
 export const getters = {
   getLoginState(state) {
-    return state.loginState
+    return localStorage.getItem('loginState')
   },
 
   getUser(state) {
