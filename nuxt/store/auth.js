@@ -39,6 +39,7 @@ export const actions = {
     const response = await this.$axios.$post(url, data)
     const user = {
       id: response.id,
+      name: response.name,
       email: response.email,
       city: response.city,
       address: response.address,
@@ -55,5 +56,10 @@ export const actions = {
 export const getters = {
   getLoginState(state) {
     return state.loginState
+  },
+
+  getUser(state) {
+    console.log('user', localStorage.getItem('user'))
+    return JSON.parse(localStorage.getItem('user'))
   }
 }

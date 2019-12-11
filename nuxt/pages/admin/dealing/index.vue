@@ -1,7 +1,12 @@
 <template>
   <v-layout>
     <v-flex wrap>
-      <MyProfile />
+      <MyProfile
+        :name="user.name"
+        :icon="null"
+        :city="user.city"
+        :address="user.address"
+      />
       <ConfirmPanel>
         <p slot="mainText">取引申込み</p>
         <v-btn slot="refusal" x-small>拒否</v-btn>
@@ -53,6 +58,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 import MyProfile from '../../../components/parts/cards/MyProfile'
 import ChatPanel from '../../../components/parts/cards/ChatPanel'
 import ConfirmPanel from '../../../components/parts/cards/ConfirmPanel'
@@ -65,22 +72,26 @@ export default {
   },
   data() {
     return {
-      user: {
-        id: 2,
-        name: 'my name',
-        icon: 'https://randomuser.me/api/portraits/women/85.jpg',
-        city: '福岡県福岡市',
-        address: '博多区美野島'
-      },
+      user: {},
       star: 0,
-      dealingId: 2,
+      dealingId: null,
       postMessage: '',
       intervalId: null
     }
   },
-  computed: {},
+  computed: {
+    ...mapGetters('auth', ['getUser'])
+  },
   watch: {},
-  async created() {},
+  watchQuery(newQuery, oldQuery) {
+    console.log('newQuery', newQuery)
+    this.dealingId = newQuery.dealing_id
+  },
+  created() {
+    console.log('this.$route.dealingId', this.$route.dealingId)
+    this.dealingId = Number(this.$route.query.dealing_id)
+    this.user = this.getUser
+  },
   methods: {}
 }
 </script>

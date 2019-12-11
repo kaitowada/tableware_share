@@ -5,8 +5,11 @@
         <v-layout wrap>
           <v-flex>
             <v-list-item>
-              <v-list-item-avatar size="60">
+              <v-list-item-avatar v-if="icon" size="60">
                 <v-img :src="user.icon" />
+              </v-list-item-avatar>
+              <v-list-item-avatar v-else size="60">
+                <v-icon size="60">mdi-account-circle</v-icon>
               </v-list-item-avatar>
               <v-list-item-content>
                 <v-list-item-title class="title">
@@ -28,6 +31,28 @@
 export default {
   name: 'MyProfile',
   components: {},
+  props: {
+    name: {
+      type: String,
+      require: true,
+      default: ''
+    },
+    icon: {
+      type: String,
+      require: true,
+      default: ''
+    },
+    city: {
+      type: String,
+      require: true,
+      default: ''
+    },
+    address: {
+      type: String,
+      require: true,
+      default: ''
+    }
+  },
   data() {
     return {
       user: {

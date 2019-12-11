@@ -5,7 +5,14 @@
         <v-layout row wrap>
           <v-flex xs5>
             <div @click="setImage">
-              <v-img src="https://randomuser.me/api/portraits/women/85.jpg" />
+              <template v-if="user.image_path">
+                <v-list-item-avatar size="170">
+                  <v-img :src="user.image_path" />
+                </v-list-item-avatar>
+              </template>
+              <template v-else>
+                <v-icon size="170">mdi-account-circle</v-icon>
+              </template>
             </div>
             <input
               id="finish_image"
@@ -39,9 +46,8 @@
         </v-layout>
         <v-flex xs12>
           <v-text-field
-            :value="user.name"
+            v-model="user.name"
             label="my name"
-            readonly
             class="my-name-size"
           />
         </v-flex>
@@ -85,20 +91,17 @@ export default {
   components: {},
   data() {
     return {
-      user: {
-        name: 'my name',
-        city: '',
-        address: ''
-      }
+      user: {}
     }
   },
   computed: {
-    ...mapGetters('evaluation', ['getUserStar'])
+    ...mapGetters('evaluation', ['getUserStar']),
+    ...mapGetters('auth', ['getUser'])
   },
   watch: {},
   async created() {
-    const userId = 1
-    await this.getStar(userId)
+    this.user = this.getUser
+    await this.getStar(this.user.id)
   },
   methods: {
     ...mapActions('evaluation', { getStar: 'getUserStar' }),
@@ -112,10 +115,11 @@ export default {
     isUpdateAddress() {
       const data = {
         postData: {
+          name: this.user.name,
           city: this.user.city,
           address: this.user.address
         },
-        userId: 1
+        userId: this.user.id
       }
       this.updateAddress(data)
     },
@@ -133,7 +137,7 @@ export default {
         const params = new FormData()
         params.append('file', file)
         const data = {
-          userId: 1,
+          userId: this.user.id,
           image: params
         }
         this.updateImage(data)
