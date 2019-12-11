@@ -65,19 +65,31 @@
             お知らせ
           </v-subheader>
           <v-list-item-group>
-            <v-list-item
-              v-for="situation in getSituation"
-              @click="getLink(situation)"
-            >
-              <v-list-item-content>
-                <v-list-item-title>
-                  {{ situation.name }}の品で取引をしています
-                </v-list-item-title>
-                <v-list-item-subtitle>
-                  取引を進めてください。
-                </v-list-item-subtitle>
-              </v-list-item-content>
-            </v-list-item>
+            <template v-if="getSituation">
+              <v-list-item
+                v-for="situation in getSituation"
+                :key="getSituation.id"
+                @click="getLink(situation)"
+              >
+                <v-list-item-content>
+                  <v-list-item-title>
+                    {{ situation.commodity.name }}の品で取引をしています
+                  </v-list-item-title>
+                  <v-list-item-subtitle>
+                    取引を進めてください。
+                  </v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+            </template>
+            <template v-else>
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title>
+                    現在取引はありません。
+                  </v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </template>
           </v-list-item-group>
         </v-list>
       </v-navigation-drawer>
@@ -123,6 +135,7 @@ export default {
     fixed: false,
     login: false,
     alertFlg: false,
+    dealingId: 2,
     user: {
       id: 1,
       name: 'user name',
@@ -144,8 +157,16 @@ export default {
       this.alertFlg = !this.alertFlg
     },
     getLink(situation) {
-      if (situation.id === this.user.id) {
-        console.log('getLink')
+      if (situation.commodity.id === this.user.id) {
+        this.$router.push({
+          path: `/admin/dealing`,
+          params: { dealingId: '2' }
+        })
+      } else {
+        this.$router.push({
+          path: `/dealing`,
+          params: { dealingId: '2' }
+        })
       }
     }
   }
