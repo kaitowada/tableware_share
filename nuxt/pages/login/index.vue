@@ -53,11 +53,16 @@ export default {
   watch: {
     getLoginState(val, oldVal) {
       if (val) {
+        console.log('val', val)
         this.$router.push({ path: `/mypage` })
       }
     }
   },
-  async created() {},
+  created() {
+    if (this.getLoginState) {
+      this.$router.push({ path: `/mypage` })
+    }
+  },
   methods: {
     ...mapActions('auth', { goLogin: 'login' }),
     async pushLogin() {

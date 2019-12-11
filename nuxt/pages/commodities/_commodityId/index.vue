@@ -1,25 +1,32 @@
 <template>
   <v-card :flat="true">
-    <v-container>
+    <v-container v-if="getCommodity">
       <v-layout :justify-center="true" row wrap>
         <v-flex xs11>
-          <v-img :src="commodity.icon" class="image-style" />
+          <template v-if="getCommodity.image_path">
+            <v-img :src="getCommodity.image_path" class="image-style" />
+          </template>
+          <template v-else>
+            <v-icon size="325" class="image-style">
+              mdi-alert-box-outline
+            </v-icon>
+          </template>
         </v-flex>
         <v-flex xs12>
           <v-card-title class="headline font-weight-bold">
-            {{ commodity.name }}
+            {{ getCommodity.name }}
           </v-card-title>
         </v-flex>
         <v-flex>
           <v-card>
             <v-subheader class="font-weight-bold">
-              取引場所 :{{ user.city + user.address }}
+              取引場所 :{{ getCommodity.user.city + getCommodity.user.address }}
             </v-subheader>
             <v-subheader class="font-weight-bold">
-              金額 : {{ commodity.price }}円
+              金額 : {{ getCommodity.price }}円
             </v-subheader>
             <v-card-text class="body-1">
-              {{ commodity.description }}
+              {{ getCommodity.description }}
             </v-card-text>
           </v-card>
         </v-flex>
@@ -29,27 +36,25 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
 export default {
   data() {
     return {
-      commodity: {
-        name: 'shankou',
-        price: 10000000,
-        icon: 'https://randomuser.me/api/portraits/women/85.jpg',
-        description:
-          'Nulla totam consequuntur et sunt magnam. Inventore aut dolores modi accusamus molestiae id. Impedit in vero alias ut eum a velit. Voluptas molestias magni voluptate quos illum beatae.'
-      },
-      user: {
-        name: '加藤恵',
-        city: '福岡県福岡市',
-        address: '東区和白丘'
-      }
+      commodityId: '',
+      commodity: null
     }
   },
-  computed: {},
+  computed: {
+    ...mapGetters('commodity', ['getCommodity'])
+  },
   watch: {},
-  async created() {},
-  methods: {}
+  async created() {
+    this.commodityId = this.$route.params.commodityId
+    await this.getCommodityDetail(this.commodityId)
+  },
+  methods: {
+    ...mapActions('commodity', { getCommodityDetail: 'getCommodityDetail' })
+  }
 }
 </script>
 

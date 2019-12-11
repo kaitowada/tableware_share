@@ -31,7 +31,9 @@ class CommodityController extends Controller
         $commodity->user_id = $request->input('user_id');
         $commodity->name = $request->input('name');
         $commodity->price = $request->input('price');
-        $commodity->image_path = $request->file('image_path')->store('public');
+        if(!empty($request->file('image_path'))) {
+            $commodity->image_path = $request->file('image_path')->store('public');
+        }
         $commodity->description = $request->input('description');
         $commodity->save();
         return response()->json(['status'=>'success']);
@@ -45,7 +47,7 @@ class CommodityController extends Controller
      */
     public function show($id)
     {
-        //
+        return Commodity::with('user')->find($id);
     }
 
     /**
@@ -69,5 +71,9 @@ class CommodityController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function search($id) {
+        return Commodity::whereNotIn('user_id', [$id])->get();
     }
 }
