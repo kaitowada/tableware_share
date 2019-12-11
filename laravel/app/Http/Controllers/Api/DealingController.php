@@ -93,7 +93,7 @@ class DealingController extends Controller
 
     public function get_status_trading(Request $request) {
         $id = $request->input('user_id');
-        $result = Dealing::with('commodity')
+        $result = Dealing::with('commodity')->where('user_id', $id)
             ->get();
 
         return $result;
