@@ -32,6 +32,7 @@ Route::group(["middleware" => "api"], function () {
         Route::match(["get", "options"], '/dealing/get_status_trading', 'Api\DealingController@get_status_trading');
         Route::apiResource('dealing', 'Api\DealingController');
 
+        Route::apiResource('commodity', 'Api\CommodityController');
 
         Route::apiResource('user', 'Api\UserController');
         Route::match(["post", "options"], 'user/update_image/{id}', 'Api\UserController@update_image');
