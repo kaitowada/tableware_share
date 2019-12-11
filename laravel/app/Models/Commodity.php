@@ -17,6 +17,10 @@ class Commodity extends Model
         return $this->hasOne('App\Models\Dealing');
     }
 
+    protected $fillable = [
+        'user_id', 'name', 'price', 'image_path', 'description', 'is_dealings',
+    ];
+
     protected $table = 'commodities';
     protected $dates = ['deleted_at'];
 }
