@@ -3,16 +3,28 @@
     <v-navigation-drawer v-model="drawer" temporary fixed>
       <template>
         <v-list>
-          <v-list-item>
-            <v-list-item-avatar size="55">
-              <v-img :src="user.icon" />
-            </v-list-item-avatar>
-          </v-list-item>
+          <template v-if="user.image_path">
+            <v-list-item>
+              <v-list-item-avatar size="55">
+                <v-img :src="user.image_path" />
+              </v-list-item-avatar>
+            </v-list-item>
+          </template>
+          <template v-else>
+            <v-list-item>
+              <v-list-item-avatar size="55">
+                <v-icon size="55">mdi-account-circle</v-icon>
+              </v-list-item-avatar>
+            </v-list-item>
+          </template>
 
           <v-list-item>
             <v-list-item-content>
-              <v-list-item-title class="title">
+              <v-list-item-title v-if="user.name" class="title">
                 {{ user.name }}
+              </v-list-item-title>
+              <v-list-item-title v-else class="title">
+                NoName
               </v-list-item-title>
               <v-list-item-subtitle>
                 {{ user.city }}{{ user.address }}
@@ -136,20 +148,16 @@ export default {
     login: false,
     alertFlg: false,
     dealingId: 2,
-    user: {
-      id: 1,
-      name: 'user name',
-      city: '福岡県福岡市',
-      address: '博多区美野島',
-      icon: 'https://randomuser.me/api/portraits/women/85.jpg'
-    }
+    user: {}
   }),
   computed: {
-    ...mapGetters('dealing', ['getAlert', 'getSituation'])
+    ...mapGetters('dealing', ['getAlert', 'getSituation']),
+    ...mapGetters('auth', ['getUser'])
   },
   watch: {},
   async created() {
-    await this.getDealingsSituation(this.user.id)
+    this.user = this.getUser
+    await this.getDealingsSituation(this.getUser.id)
   },
   methods: {
     ...mapActions('dealing', { getDealingsSituation: 'getDealingsSituation' }),
@@ -160,12 +168,12 @@ export default {
       if (situation.commodity.id === this.user.id) {
         this.$router.push({
           path: `/admin/dealing`,
-          params: { dealingId: '2' }
+          query: { dealing_id: situation.id }
         })
       } else {
         this.$router.push({
           path: `/dealing`,
-          params: { dealingId: '2' }
+          query: { dealing_id: situation.id }
         })
       }
     }

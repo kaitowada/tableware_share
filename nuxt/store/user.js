@@ -4,6 +4,7 @@ export const state = () => ({
 export const mutations = {
   setUser(state, user) {
     state.user = user
+    localStorage.setItem('user', JSON.stringify(user))
   }
 }
 export const actions = {
@@ -28,13 +29,13 @@ export const actions = {
   },
 
   async updateUserAddress({ dispatch, commit }, data) {
-    console.log('data', data.postData)
-    console.log('userId', data.userId)
-    await this.$axios.$put('/user/1', data.postData)
-    commit('setUser')
+    const url = '/user/' + data.userId
+    const response = await this.$axios.$put(url, data.postData)
+    commit('setUser', response)
   },
   async updateUserImage({ commit }, data) {
-    await this.$axios.$post('/user/update_image/' + data.userId, data.image, {
+    const url = '/user/update_image/' + data.userId
+    await this.$axios.$post(url, data.image, {
       headers: { 'content-type': 'multipart/form-data' }
     })
   }

@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\User;
 
-class UserController extends Controller
+class CommodityController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -46,22 +44,11 @@ class UserController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        $user = User::find($id);
-        $user->fill($request->all())->save();
-        $data = array(
-            'id'=>$user->id,
-            'name'=>$user->name,
-            'email'=>$user->email,
-            'image_path'=>$user->image_path,
-            'city'=>$user->city,
-            'address'=>$user->address,
-            'birthday'=>$user->birthday
-        );
-        return $data;
+        //
     }
 
     /**
@@ -73,12 +60,5 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function update_image(Request $request, $id) {
-        $user = User::find($id);
-        $user->image_path = $request->file('file')->store('public');
-        $user->save();
-        return response()->json(['status'=>'success']);
     }
 }
