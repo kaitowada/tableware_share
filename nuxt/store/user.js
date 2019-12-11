@@ -7,6 +7,26 @@ export const mutations = {
   }
 }
 export const actions = {
+  async login({ dispatch, commit }, { data }) {
+    try {
+      const response = await this.$axios.$post(
+        'http://localhost:4000/api/login',
+        data
+      )
+      const user = {
+        id: response.id,
+        email: response.email
+      }
+      console.log('response', response)
+      dispatch('setUser', user)
+      dispatch('setAccessToken', response.api_token)
+      dispatch('setLoginState', true)
+      return Promise.resolve(response)
+    } catch (error) {
+      return Promise.reject(error)
+    }
+  },
+
   async updateUserAddress({ dispatch, commit }, data) {
     console.log('data', data.postData)
     console.log('userId', data.userId)
