@@ -38,7 +38,10 @@ class DealingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $dealing = new Dealing();
+        $dealing->fill($request->all());
+        $dealing->save();
+        return response()->json(['status'=>'success']);
     }
 
     /**
@@ -72,7 +75,9 @@ class DealingController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $dealing = Dealing::find($id);
+        $dealing->fill($request->all())->save();
+        return response()->json(['status'=>'success']);
     }
 
     /**

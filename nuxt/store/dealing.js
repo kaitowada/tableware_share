@@ -1,5 +1,5 @@
 export const state = () => ({
-  dealingsSituation: [],
+  dealingsSituation: null,
   alert: false
 })
 

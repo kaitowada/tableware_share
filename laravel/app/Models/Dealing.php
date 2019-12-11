@@ -22,6 +22,10 @@ class Dealing extends Model
         return $this->hasMany('App\Models\ChatLog');
     }
 
+    protected $fillable = [
+        'user_id', 'commodity_id', 'status',
+    ];
+
     protected $table = 'dealings';
     protected $dates = ['deleted_at'];
 }

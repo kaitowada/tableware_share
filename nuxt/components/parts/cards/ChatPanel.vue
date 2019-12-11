@@ -76,7 +76,7 @@ export default {
       async function() {
         await this.getDealingChat(this.dealingId)
       }.bind(this),
-      3000
+      5000
     )
   },
   beforeDestroy() {
