@@ -28,6 +28,9 @@
             <v-card-text class="body-1">
               {{ getCommodity.description }}
             </v-card-text>
+            <v-btn @click="goDealing">
+              取引を開始する
+            </v-btn>
           </v-card>
         </v-flex>
       </v-layout>
@@ -45,6 +48,7 @@ export default {
     }
   },
   computed: {
+    ...mapGetters('auth', ['getUser']),
     ...mapGetters('commodity', ['getCommodity'])
   },
   watch: {},
@@ -53,7 +57,21 @@ export default {
     await this.getCommodityDetail(this.commodityId)
   },
   methods: {
-    ...mapActions('commodity', { getCommodityDetail: 'getCommodityDetail' })
+    ...mapActions('commodity', { getCommodityDetail: 'getCommodityDetail' }),
+    ...mapActions('dealing', { dealingStart: 'dealingStart' }),
+    async goDealing() {
+      console.log('取引開始ボタン')
+      const params = {
+        user_id: this.getUser.id,
+        commodity_id: this.commodityId,
+        status: 0
+      }
+      const response = await this.dealingStart(params)
+      this.$router.push({
+        path: `/dealing`,
+        query: { dealing_id: response.id }
+      })
+    }
   }
 }
 </script>

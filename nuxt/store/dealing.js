@@ -22,6 +22,12 @@ export const actions = {
       }
     })
     commit('setDealingsSituation', response)
+  },
+  async dealingStart({ dispatch, commit }, data) {
+    const url = '/dealing'
+    const response = await this.$axios.$post(url, data)
+    dispatch('getDealingsSituation', data.user_id)
+    return response
   }
 }
 

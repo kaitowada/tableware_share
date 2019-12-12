@@ -41,7 +41,7 @@ class DealingController extends Controller
         $dealing = new Dealing();
         $dealing->fill($request->all());
         $dealing->save();
-        return response()->json(['status'=>'success']);
+        return $dealing;
     }
 
     /**
@@ -95,6 +95,7 @@ class DealingController extends Controller
         $id = $request->input('user_id');
         $result = Dealing::with('commodity')->where('user_id', $id)
             ->get();
+
         return $result;
     }
 }

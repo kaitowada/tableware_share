@@ -67,6 +67,7 @@ export default {
     ...mapActions('auth', { goLogin: 'login' }),
     async pushLogin() {
       await this.goLogin(this.user)
+      this.$router.push({ path: `/mypage` })
       console.log('push login')
     },
     pushRegister() {

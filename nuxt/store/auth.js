@@ -58,6 +58,9 @@ export const actions = {
 
 export const getters = {
   getLoginState(state) {
+    if (localStorage.getItem('loginState') === null) {
+      return false
+    }
     return localStorage.getItem('loginState')
   },
 
