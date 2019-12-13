@@ -54,7 +54,7 @@ export default {
     getLoginState(val, oldVal) {
       if (val) {
         console.log('val', val)
-        this.$router.push({ path: `/mypage` })
+        this.$router.push({ path: `/` })
       }
     }
   },
@@ -67,7 +67,7 @@ export default {
     ...mapActions('auth', { goLogin: 'login' }),
     async pushLogin() {
       await this.goLogin(this.user)
-      this.$router.push({ path: `/mypage` })
+      location.reload()
       console.log('push login')
     },
     pushRegister() {

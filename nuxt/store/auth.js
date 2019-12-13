@@ -17,7 +17,6 @@ export const mutations = {
   },
   setLoginState(state, loginStatus) {
     console.log('setState')
-    localStorage.setItem('loginState', loginStatus)
     state.loginState = loginStatus
   },
   unsetAuthInfo(state) {
@@ -49,10 +48,11 @@ export const actions = {
       birthday: response.birthday,
       image_path: response.image_path
     }
+    localStorage.setItem('loginState', 'true')
+    commit('setLoginState', true)
     console.log('response', response)
     commit('setAccessToken', response.api_token)
     commit('setUser', user)
-    commit('setLoginState', true)
   }
 }
 

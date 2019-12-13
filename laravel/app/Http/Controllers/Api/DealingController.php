@@ -52,7 +52,7 @@ class DealingController extends Controller
      */
     public function show($id)
     {
-        //
+        return Dealing::find($id);
     }
 
     /**
