@@ -75,6 +75,7 @@ export default {
     this.intervalId = setInterval(
       async function() {
         await this.getDealingChat(this.dealingId)
+        await this.getDealingStatus(this.dealingId)
       }.bind(this),
       5000
     )
@@ -88,6 +89,7 @@ export default {
       getDealingChat: 'getTransactionChat',
       saveMessage: 'saveMessageLog'
     }),
+    ...mapActions('dealing', { getDealingStatus: 'getDealing' }),
     async chatPost() {
       console.log('onClick 送信')
       const params = {

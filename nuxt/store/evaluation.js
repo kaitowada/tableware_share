@@ -10,6 +10,10 @@ export const actions = {
   async getUserStar({ dispatch, commit }, data) {
     const response = await this.$axios.$get('/evaluation/' + data)
     commit('setStar', response)
+  },
+  async setUserStar({ dispatch, commit }, data) {
+    const url = '/evaluation/'
+    await this.$axios.$post(url, data)
   }
 }
 export const getters = {

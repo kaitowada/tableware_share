@@ -52,7 +52,7 @@ class DealingController extends Controller
      */
     public function show($id)
     {
-        return Dealing::find($id);
+        return Dealing::with('commodity')->find($id);
     }
 
     /**
@@ -76,7 +76,8 @@ class DealingController extends Controller
     public function update(Request $request, $id)
     {
         $dealing = Dealing::find($id);
-        $dealing->fill($request->all())->save();
+        $dealing->status = $dealing->status + 1;
+        $dealing->save();
         return response()->json(['status'=>'success']);
     }
 

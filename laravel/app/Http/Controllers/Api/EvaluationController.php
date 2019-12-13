@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Evaluation;
+use App\Models\Dealing;
 
 class EvaluationController extends Controller
 {
@@ -37,7 +38,18 @@ class EvaluationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $evaluation = new Evaluation();
+        $evaluation->user_id = $request->input('user_id');
+        $evaluation->star = $request->input('star');
+        $evaluation->save();
+        $dealing = Dealing::find($request->input('dealing_id'));
+        if($request->input('is_admin')) {
+            $dealing->rating_admin = true;
+        } else {
+            $dealing->rating_user = true;
+        }
+        $dealing->save();
+        return $evaluation;
     }
 
     /**
