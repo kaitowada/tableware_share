@@ -34,9 +34,11 @@ Route::group(["middleware" => "api"], function () {
 
         Route::apiResource('commodity', 'Api\CommodityController');
         Route::match(["get", "options"], '/commodity/search/{id}', 'Api\CommodityController@search');
+        Route::match(["get", "options"], '/commodity/adminDealings/{id}', 'Api\CommodityController@adminDealings');
 
         Route::apiResource('user', 'Api\UserController');
         Route::match(["post", "options"], 'user/update_image/{id}', 'Api\UserController@update_image');
+        Route::match(["get", "options"], 'user/get_image/{id}', 'Api\UserController@get_image');
 
         Route::apiResource('chat_log', 'Api\ChatLogController');
     });

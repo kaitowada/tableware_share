@@ -53,6 +53,32 @@ export const actions = {
     console.log('response', response)
     commit('setAccessToken', response.api_token)
     commit('setUser', user)
+  },
+  async updateUserAddress({ dispatch, commit }, data) {
+    const url = '/user/' + data.userId
+    const response = await this.$axios.$put(url, data.postData)
+    commit('setUser', response)
+  },
+  async updateUserImage({ dispatch, commit }, data) {
+    const url = '/user/update_image/' + data.userId
+    await this.$axios.$post(url, data.image, {
+      headers: { 'content-type': 'multipart/form-data' }
+    })
+    dispatch('loginUpdateUser', data.userId)
+  },
+  async loginUpdateUser({ commit }, data) {
+    const url = '/user/' + data
+    const response = await this.$axios.$get(url)
+    const user = {
+      id: response.id,
+      name: response.name,
+      email: response.email,
+      city: response.city,
+      address: response.address,
+      birthday: response.birthday,
+      image_path: response.image_path
+    }
+    commit('setUser', user)
   }
 }
 

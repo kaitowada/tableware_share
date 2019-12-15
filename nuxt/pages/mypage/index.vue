@@ -7,7 +7,7 @@
             <div @click="setImage">
               <template v-if="user.image_path">
                 <v-list-item-avatar size="170">
-                  <v-img :src="user.image_path" />
+                  <v-img :src="getImage" />
                 </v-list-item-avatar>
               </template>
               <template v-else>
@@ -24,7 +24,7 @@
             />
           </v-flex>
           <v-flex xs5>
-            <v-content>
+            <v-content class="side-margin">
               <v-container align-center="true">
                 <v-layout column wrap>
                   <v-flex xs4>
@@ -96,7 +96,11 @@ export default {
   },
   computed: {
     ...mapGetters('evaluation', ['getUserStar']),
-    ...mapGetters('auth', ['getUser'])
+    ...mapGetters('auth', ['getUser']),
+    getImage() {
+      console.log('url')
+      return `http://localhost:4000/${this.getUser.image_path}`
+    }
   },
   watch: {},
   async created() {
@@ -105,7 +109,7 @@ export default {
   },
   methods: {
     ...mapActions('evaluation', { getStar: 'getUserStar' }),
-    ...mapActions('user', {
+    ...mapActions('auth', {
       updateAddress: 'updateUserAddress',
       updateImage: 'updateUserImage'
     }),
@@ -166,5 +170,8 @@ export default {
 .file-input {
   display: none;
   z-index: 1;
+}
+.side-margin {
+  margin-left: 10px;
 }
 </style>

@@ -38,7 +38,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        return User::find($id);
     }
 
     /**
@@ -77,7 +77,9 @@ class UserController extends Controller
 
     public function update_image(Request $request, $id) {
         $user = User::find($id);
-        $user->image_path = $request->file('file')->store('public');
+        $image_path = explode('/', $request->file('file')->store('public'), 2);
+        $image_path = 'storage/' . $image_path[1];
+        $user->image_path = $image_path;
         $user->save();
         return response()->json(['status'=>'success']);
     }
