@@ -79,9 +79,6 @@ export const actions = {
       image_path: response.image_path
     }
     commit('setUser', user)
-  },
-  logout({ commit }) {
-    commit('unsetAuthInfo')
   }
 }
 

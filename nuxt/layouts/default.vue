@@ -3,7 +3,7 @@
     <v-navigation-drawer v-model="drawer" temporary fixed>
       <template>
         <v-list>
-          <template v-if="false">
+          <template v-if="user.image_path">
             <v-list-item>
               <v-list-item-avatar size="55">
                 <v-img :src="user.image_path" />
@@ -13,10 +13,7 @@
           <template v-else>
             <v-list-item>
               <v-list-item-avatar size="55">
-                <!--                <v-icon size="55">mdi-account-circle</v-icon>-->
-                <v-img
-                  src="https://pbs.twimg.com/profile_images/1077172356487905281/BB3FaAc9_400x400.jpg"
-                />
+                <v-icon size="55">mdi-account-circle</v-icon>
               </v-list-item-avatar>
             </v-list-item>
           </template>
@@ -64,13 +61,6 @@
           </v-list-item-icon>
           <v-list-item-title>貸出商品登録</v-list-item-title>
         </v-list-item>
-        <v-divider />
-        <v-list-item @click="logoutUser">
-          <v-list-item-icon>
-            <v-icon>mdi-logout-variant</v-icon>
-          </v-list-item-icon>
-          <v-list-item-title>ログアウト</v-list-item-title>
-        </v-list-item>
       </v-list>
     </v-navigation-drawer>
 
@@ -117,7 +107,7 @@
       </v-navigation-drawer>
     </v-card>
 
-    <v-app-bar :clipped-left="clipped" fixed app color="#a8fffb">
+    <v-app-bar :clipped-left="clipped" fixed app class="header-colour">
       <v-btn @click.stop="drawer = !drawer" icon>
         <v-icon>mdi-menu</v-icon>
       </v-btn>
@@ -171,7 +161,6 @@ export default {
   },
   methods: {
     ...mapActions('dealing', { getDealingsSituation: 'getDealingsSituation' }),
-    ...mapActions('auth', { logout: 'logout' }),
     changeAlertFlg() {
       this.alertFlg = !this.alertFlg
     },
@@ -187,10 +176,6 @@ export default {
           query: { dealing_id: situation.id }
         })
       }
-    },
-    async logoutUser() {
-      await this.logout()
-      this.$router.push({ path: `/login` })
     }
   }
 }

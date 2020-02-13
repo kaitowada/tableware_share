@@ -7,13 +7,9 @@
             <v-img :src="getCommodity.image_path" class="image-style" />
           </template>
           <template v-else>
-            <!--            <v-icon size="325" class="image-style">-->
-            <!--              mdi-alert-box-outline-->
-            <!--            </v-icon>-->
-            <v-img
-              src="https://pbs.twimg.com/profile_images/1077172356487905281/BB3FaAc9_400x400.jpg"
-              class="image-style"
-            />
+            <v-icon size="325" class="image-style">
+              mdi-alert-box-outline
+            </v-icon>
           </template>
         </v-flex>
         <v-flex xs12>

@@ -50,14 +50,25 @@ export default {
   computed: {
     ...mapGetters('auth', ['getLoginState'])
   },
-  watch: {},
-  created() {},
+  watch: {
+    getLoginState(val, oldVal) {
+      if (val) {
+        console.log('val', val)
+        this.$router.push({ path: `/` })
+      }
+    }
+  },
+  created() {
+    if (this.getLoginState) {
+      this.$router.push({ path: `/mypage` })
+    }
+  },
   methods: {
     ...mapActions('auth', { goLogin: 'login' }),
     async pushLogin() {
       await this.goLogin(this.user)
+      location.reload()
       console.log('push login')
-      this.$router.push({ path: `/mypage` })
     },
     pushRegister() {
       this.$router.push({ path: `/register` })
