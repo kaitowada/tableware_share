@@ -18,14 +18,13 @@
             >
               <div class="my-commodities__comodity">
                 <img
-                  v-if="item.image_path"
-                  :src="item.image_path"
+                  src="https://pbs.twimg.com/profile_images/1077172356487905281/BB3FaAc9_400x400.jpg"
                   class="my-commodities__comodity-image"
                   alt=""
                 />
-                <v-icon v-else size="70" class="my-commodities__comodity-image">
-                  mdi-alert-box-outline
-                </v-icon>
+                <!--                <v-icon v-else size="70" class="my-commodities__comodity-image">-->
+                <!--                  mdi-alert-box-outline-->
+                <!--                </v-icon>-->
                 <div class="comodity-item">
                   <div class="comodity-item__title">{{ item.name }}</div>
                   <div class="comodity-item__note">

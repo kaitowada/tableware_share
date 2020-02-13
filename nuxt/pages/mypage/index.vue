@@ -5,13 +5,18 @@
         <v-layout row wrap>
           <v-flex xs5>
             <div @click="setImage">
-              <template v-if="user.image_path">
+              <template v-if="false">
                 <v-list-item-avatar size="170">
                   <v-img :src="getImage" />
                 </v-list-item-avatar>
               </template>
               <template v-else>
-                <v-icon size="170">mdi-account-circle</v-icon>
+                <!--                <v-icon size="170">mdi-account-circle</v-icon>-->
+                <v-list-item-avatar size="170">
+                  <v-img
+                    src="https://pbs.twimg.com/profile_images/1077172356487905281/BB3FaAc9_400x400.jpg"
+                  />
+                </v-list-item-avatar>
               </template>
             </div>
             <input
@@ -99,12 +104,15 @@ export default {
     ...mapGetters('auth', ['getUser']),
     getImage() {
       console.log('url')
-      return `http://localhost:4000/${this.getUser.image_path}`
+      return `https://tableware-back.herokuapp.com/${this.getUser.image_path}`
     }
   },
   watch: {},
   async created() {
     this.user = this.getUser
+    if (!this.user.name) {
+      this.user.name = 'No Name'
+    }
     await this.getStar(this.user.id)
   },
   methods: {
